@@ -7,11 +7,19 @@
 	.highlight { color: blue;}
 
 	.screen-name {
-		margin-bottom: 5px;
+		color: #55ACEE;
+	}
+
+	.date {
+		font-size: .7em;
+		margin-bottom: 10px;
 	}
 	
 	.tweet {
 		margin-bottom: 25px;
+		background: #55ACEE;
+		padding: 5px;
+		border-radius: 10px;
 	}
 
 	.hashtag {
@@ -51,17 +59,17 @@
 
 	<div>
 		<form name="search">
-			Query: <input name="q" type="text" />
-			Limit: <input name="count" type="number" />
+			Query: <input class="custom-search-field" name="q" type="text" />
+			Limit: <input class="count-search-field" name="count" type="number" />
 			Result Type:
-			<select name="result_type">
+			<select class="result-type-field" name="result_type">
 				<option value="mixed">Default</option>
 				<option value="popular">Most popular</option>
 				<option value="recent">Most recent</option>
 			</select>
-			<button type="submit">Custom Search</button>
+			<button id="submit-custom-search-button" type="submit">Custom Search</button>
 			<div class="results">
-				<ul>
+				<ul class="custom-query">
 				</ul>
 			</div>
 		</form>
