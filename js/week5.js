@@ -15,11 +15,10 @@ var TwitterApi = (function(options) {
 			}
 		}
 		return defaultURL;
-
 	}
 
 	function hashtagHighlight (text) {
-		var hashtagRegex = /(\S*#\[[^\]]+\])|(\S*#\S+)/gi;
+		var hashtagRegex = /(\S*#\[[^\]]+\])|(\S*#\w+)/gi;
 		var hashtagRegexCall = text.match(hashtagRegex);
 		var defaultHashtag = text;
 		if (hashtagRegexCall) {
@@ -28,11 +27,10 @@ var TwitterApi = (function(options) {
 			}
 		}
 		return defaultHashtag;
-
 	}
 
 	function usernameHighlight (text) {
-		var usernameRegex = /(\S*@\[[^\]]+\])|(\S*@\S+)/gi;
+		var usernameRegex = /(\S*@\[[^\]]+\])|(\S*@\w+)/gi;
 		var usernameRegexCall = text.match(usernameRegex);
 		var defaultUsername = text;
 		if (usernameRegexCall) {
@@ -97,8 +95,6 @@ var TwitterApi = (function(options) {
 
 	function processCustomResults (results) {
 		var $apiResults = JSON.parse(results);
-		console.log($apiResults);
-
 
 		for (var i = 0; i < $apiResults.statuses.length; i++) {
 
@@ -120,7 +116,18 @@ var TwitterApi = (function(options) {
 			customQuery.appendChild(screenName);
 			customQuery.appendChild(tweetDate);
 			customQuery.appendChild(hashtagTweet);
-		}
+
+			// var queryRegex = $apiResults.search_metadata.query;
+			// var queryRegexCall = results.match(queryRegex);
+
+			// var defaultQuery = queryRegex;
+			// if (queryRegexCall) {
+			// 	for (var i = 0; i < queryRegexCall.length; i++) {
+			// 	 defaultQuery = queryRegex.replace(queryRegex, "<a href='"+ queryRegexCall[i] + "' target='_blank' style='color:red;'>" + queryRegexCall[i] + "</a>");
+			// 	}
+			// }
+			// return defaultQuery;
+			}
 	}
 
 	var deleteTimelineResults = function () {
