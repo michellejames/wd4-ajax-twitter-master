@@ -4,6 +4,13 @@
 	<title>Week 5 Assignment</title>
 
 	<style type="text/css">
+
+	html, body {
+	    height: 100%;
+	    margin: 0;
+	    padding: 0;
+    }
+
 	.highlight { color: blue;}
 
 	.screen-name {
@@ -28,6 +35,9 @@
 		font-size: bold;
 	}
 
+	#map {
+        height: 50%;
+    }
 	</style>
 </head>
 <body id="body">
@@ -78,8 +88,11 @@
 
 	<hr/>
 
+	<div id="map"></div>
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMFCEnANu0HCvQe2SCwHCVre7yzWFv7ag&callback=GoogleModule.initMap"
+    async defer></script>
 <script type="text/javascript" src="js/week5.js"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 
-var TwitterApi = (function(options) {
+var RegexModule = (function() {
 	var shared = {};
 
 	function urlHighlight (text) {
@@ -41,6 +41,67 @@ var TwitterApi = (function(options) {
 		return defaultUsername;
 
 	}
+	function highlighTweets (text) {
+		var urlHighlight = RegexModule.urlHighlight(text);
+		var hashtagHighlight = RegexModule.hashtagHighlight(urlHighlight);
+		var usernameHighlight = RegexModule.usernameHighlight(hashtagHighlight);
+
+		return usernameHighlight;
+	}
+
+	shared = {
+		urlHighlight: urlHighlight,
+		hashtagHighlight: hashtagHighlight,
+		usernameHighlight: usernameHighlight,
+		highlighTweets: highlighTweets,
+
+	}
+	return shared;
+}());
+
+var GoogleModule = (function() {
+	var shared = {};
+	var map;
+
+	function initMap() {
+		var ccLatlng = {
+			lat: 33.813415,
+			lng: -84.361841,
+		}  
+	  	map = new google.maps.Map(document.getElementById('map'), {
+	    	center: ccLatlng,
+	    	zoom: 8
+	  	});
+
+	  createMarker("test",ccLatlng.lat, ccLatlng.lng);
+    }
+
+    function createMarker (tweet, lat, lng) {
+
+    	var infowindow = new google.maps.InfoWindow ({
+          content: tweet,
+        });
+
+    	var marker = new google.maps.Marker ({
+          position: {lat:lat, lng:lng},
+          map: map
+        });
+
+        marker.addListener ( "click", function () {
+          infowindow.open ( map, marker );
+        });
+    }
+
+   	shared = {
+   		initMap: initMap,
+	}
+	return shared;
+
+}());
+
+
+var TwitterApi = (function(options) {
+	var shared = {};
 
 	function processTimelineResults(results){
 
@@ -57,7 +118,14 @@ var TwitterApi = (function(options) {
 			$(tweetDate).html($apiResults[i].created_at).addClass("date");
 			
 			var tweetText = document.createElement("div");
-			$(tweetText).html(usernameHighlight(hashtagHighlight(urlHighlight($apiResults[i].text)))).addClass("tweet");
+			$(tweetText).html(RegexModule.highlighTweets($apiResults[i].text)).addClass("tweet");
+			var markerText = RegexModule.highlighTweets($apiResults[i].text);
+
+			if($apiResults[i].geo) {
+				GoogleModule.createMarker(markerText, $apiResults[i].geo.coordinates[0], $apiResults[i].geo.coordinates[1]);
+			} else {
+				console.log("No geo coordinates");
+			}
 
 			timelineQuery.appendChild(screenName);
 			timelineQuery.appendChild(tweetDate);
@@ -68,6 +136,7 @@ var TwitterApi = (function(options) {
 	function processHashtagResults(results) {
 
 		var $apiResults = JSON.parse(results);
+		console.log($apiResults);
 		console.log($apiResults.search_metadata.query);
 
 		for (var i = 0; i < $apiResults.statuses.length; i++) {
@@ -84,7 +153,15 @@ var TwitterApi = (function(options) {
 			$(tweetDate).html($apiResults.statuses[i].created_at).addClass("date");
 
 			var hashtagTweet = document.createElement("div");
-			$(hashtagTweet).html(usernameHighlight(hashtagHighlight(urlHighlight($apiResults.statuses[i].text)))).addClass("tweet");
+			$(hashtagTweet).html(RegexModule.highlighTweets($apiResults.statuses[i].text)).addClass("tweet");
+			var markerText = RegexModule.highlighTweets($apiResults.statuses[i].text);
+
+			if($apiResults.statuses[i].geo) {
+				GoogleModule.createMarker(markerText, $apiResults.statuses[i].geo.coordinates[0], $apiResults.statuses[i].geo.coordinates[1]);
+			} else {
+				console.log("No geo coordinates");
+			}
+
 
 			hashtagQuery.appendChild(searchQuery);
 			hashtagQuery.appendChild(screenName);
@@ -110,23 +187,19 @@ var TwitterApi = (function(options) {
 			$(tweetDate).html($apiResults.statuses[i].created_at).addClass("date");
 
 			var hashtagTweet = document.createElement("div");
-			$(hashtagTweet).html(usernameHighlight(hashtagHighlight(urlHighlight($apiResults.statuses[i].text)))).addClass("tweet");
+			$(hashtagTweet).html(RegexModule.highlighTweets($apiResults.statuses[i].text)).addClass("tweet");
+			var markerText = RegexModule.highlighTweets($apiResults.statuses[i].text);
+
+			if($apiResults.statuses[i].geo) {
+				GoogleModule.createMarker(markerText, $apiResults.statuses[i].geo.coordinates[0], $apiResults.statuses[i].geo.coordinates[1]);
+			} else {
+				console.log("No geo coordinates");
+			}
 
 			customQuery.appendChild(searchQuery);
 			customQuery.appendChild(screenName);
 			customQuery.appendChild(tweetDate);
 			customQuery.appendChild(hashtagTweet);
-
-			// var queryRegex = $apiResults.search_metadata.query;
-			// var queryRegexCall = results.match(queryRegex);
-
-			// var defaultQuery = queryRegex;
-			// if (queryRegexCall) {
-			// 	for (var i = 0; i < queryRegexCall.length; i++) {
-			// 	 defaultQuery = queryRegex.replace(queryRegex, "<a href='"+ queryRegexCall[i] + "' target='_blank' style='color:red;'>" + queryRegexCall[i] + "</a>");
-			// 	}
-			// }
-			// return defaultQuery;
 			}
 	}
 
