@@ -156,8 +156,8 @@ var TwitterApi = (function(options) {
 			$(hashtagTweet).html(RegexModule.highlighTweets($apiResults.statuses[i].text)).addClass("tweet");
 			var markerText = RegexModule.highlighTweets($apiResults.statuses[i].text);
 
-			if($apiResults.statuses[i].geo) {
-				GoogleModule.createMarker(markerText, $apiResults.statuses[i].geo.coordinates[0], $apiResults.statuses[i].geo.coordinates[1]);
+			if($apiResults.statuses[i].coordinates[i]) {
+				GoogleModule.createMarker(markerText, $apiResults.statuses[i].coordinates.coordinates[1]);
 			} else {
 				console.log("No geo coordinates");
 			}
@@ -190,8 +190,8 @@ var TwitterApi = (function(options) {
 			$(hashtagTweet).html(RegexModule.highlighTweets($apiResults.statuses[i].text)).addClass("tweet");
 			var markerText = RegexModule.highlighTweets($apiResults.statuses[i].text);
 
-			if($apiResults.statuses[i].geo) {
-				GoogleModule.createMarker(markerText, $apiResults.statuses[i].geo.coordinates[0], $apiResults.statuses[i].geo.coordinates[1]);
+			if($apiResults.statuses[i].coordinates[i]) {
+				GoogleModule.createMarker(markerText, $apiResults.statuses[i].coordinates.coordinates[0], $apiResults.statuses[i].coordinates.coordinates[1]);
 			} else {
 				console.log("No geo coordinates");
 			}
