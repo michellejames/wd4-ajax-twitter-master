@@ -11,6 +11,15 @@
 	    padding: 0;
     }
 
+    .complete-form {
+    	width: 50%;
+    }
+
+    hr {
+    	width: 50%;
+    	left
+    }
+
 	.highlight { color: blue;}
 
 	.screen-name {
@@ -36,39 +45,43 @@
 	}
 
 	#map {
-        height: 50%;
+        position: absolute;
+        height: 100%;
+        width: 50%;
+        top: 0%;
+		left: 50%;
     }
 	</style>
 </head>
 <body id="body">
 
-	<div>
+	<div class="complete-form">
 		<form id="timeline-search" name="timeline">
 			Twitter handle: <input class="timeline-search-field" name="screen_name" type="text"/>
 			<button id="submit-button" type="submit">Get Timeline</button>
 			<div class="results">
-				<ul class="timeline-query">
-				</ul>
+<!-- 				<ul class="timeline-query">
+				</ul> -->
 			</div>
 		</form>
 	</div>
 
-	<hr/>
-
-	<div>
+<!-- 	<hr/>
+ -->
+	<div class="complete-form">
 		<form name="search">
 			Query: <input class="hashtag-search-field" name="q" type="text" />
 			<button id="submit-hashtag-button" type="submit">Quick Search</button>
 			<div class="results">
-				<ul class="hashtag-query">
-				</ul>
+<!-- 				<ul class="hashtag-query">
+				</ul> -->
 			</div>
 		</form>
 	</div>
 
-	<hr/>
-
-	<div>
+<!-- 	<hr/>
+ -->
+	<div class="complete-form">
 		<form name="search">
 			Query: <input class="custom-search-field" name="q" type="text" />
 			Limit: <input class="count-search-field" name="count" type="number" />
@@ -80,14 +93,21 @@
 			</select>
 			<button id="submit-custom-search-button" type="submit">Custom Search</button>
 			<div class="results">
-				<ul class="custom-query">
-				</ul>
+<!-- 				<ul class="custom-query">
+				</ul> -->
 			</div>
 		</form>
 	</div>
 
-	<hr/>
+				<ul class="timeline-query">
+				</ul>
+				<ul class="hashtag-query">
+				</ul>
+				<ul class="custom-query">
+				</ul>
 
+<!-- 	<hr/>
+ -->
 	<div id="map"></div>
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>

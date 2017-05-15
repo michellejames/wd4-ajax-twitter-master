@@ -94,6 +94,7 @@ var GoogleModule = (function() {
 
    	shared = {
    		initMap: initMap,
+   		createMarker:createMarker
 	}
 	return shared;
 
@@ -122,6 +123,7 @@ var TwitterApi = (function(options) {
 			var markerText = RegexModule.highlighTweets($apiResults[i].text);
 
 			if($apiResults[i].geo) {
+
 				GoogleModule.createMarker(markerText, $apiResults[i].geo.coordinates[0], $apiResults[i].geo.coordinates[1]);
 			} else {
 				console.log("No geo coordinates");
@@ -137,7 +139,7 @@ var TwitterApi = (function(options) {
 
 		var $apiResults = JSON.parse(results);
 		console.log($apiResults);
-		console.log($apiResults.search_metadata.query);
+		// console.log($apiResults.search_metadata.query);
 
 		for (var i = 0; i < $apiResults.statuses.length; i++) {
 
@@ -156,10 +158,11 @@ var TwitterApi = (function(options) {
 			$(hashtagTweet).html(RegexModule.highlighTweets($apiResults.statuses[i].text)).addClass("tweet");
 			var markerText = RegexModule.highlighTweets($apiResults.statuses[i].text);
 
-			if($apiResults.statuses[i].coordinates[i]) {
-				GoogleModule.createMarker(markerText, $apiResults.statuses[i].coordinates.coordinates[1]);
+			if($apiResults.statuses[i].geo) {
+				console.log($apiResults.statuses[i].geo.coordinates[0] +","+ $apiResults.statuses[i].geo.coordinates[1])
+				GoogleModule.createMarker(markerText, $apiResults.statuses[i].geo.coordinates[0], $apiResults.statuses[i].geo.coordinates[1]);
 			} else {
-				console.log("No geo coordinates");
+				console.log("No geo coordinates found.");
 			}
 
 
@@ -190,10 +193,10 @@ var TwitterApi = (function(options) {
 			$(hashtagTweet).html(RegexModule.highlighTweets($apiResults.statuses[i].text)).addClass("tweet");
 			var markerText = RegexModule.highlighTweets($apiResults.statuses[i].text);
 
-			if($apiResults.statuses[i].coordinates[i]) {
-				GoogleModule.createMarker(markerText, $apiResults.statuses[i].coordinates.coordinates[0], $apiResults.statuses[i].coordinates.coordinates[1]);
+			if($apiResults.statuses[i].geo) {
+				GoogleModule.createMarker(markerText, $apiResults.statuses[i].geo.coordinates[0], $apiResults.statuses[i].geo.coordinates[1]);
 			} else {
-				console.log("No geo coordinates");
+				console.log("No geo coordinates found.");
 			}
 
 			customQuery.appendChild(searchQuery);
