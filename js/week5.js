@@ -11,7 +11,7 @@ var RegexModule = (function() {
 		//console.log(defaultURL);
 		if (urlRegexCall) {
 			for (var i = 0; i < urlRegexCall.length; i++) {
-			 defaultURL = text.replace(urlRegex, "<a href='"+ urlRegexCall[i] + "' target='_blank' style='color:white;'>" + urlRegexCall[i] + "</a>");
+			 defaultURL = text.replace(urlRegex, "<a href='"+ urlRegexCall[i] + "' target='_blank' style='color:lightblue;'>" + urlRegexCall[i] + "</a>");
 			}
 		}
 		return defaultURL;
@@ -23,7 +23,7 @@ var RegexModule = (function() {
 		var defaultHashtag = text;
 		if (hashtagRegexCall) {
 			for (var i = 0; i < hashtagRegexCall.length; i++) {
-			 defaultHashtag = text.replace(hashtagRegex, "<a href='https://twitter.com/search?src=typd&q"+ hashtagRegexCall[i] + "' target='_blank' style='color:white;'>" + hashtagRegexCall[i] + "</a>");
+			 defaultHashtag = text.replace(hashtagRegex, "<a href='https://twitter.com/search?src=typd&q"+ hashtagRegexCall[i] + "' target='_blank' style='color:lightblue;'>" + hashtagRegexCall[i] + "</a>");
 			}
 		}
 		return defaultHashtag;
@@ -35,7 +35,7 @@ var RegexModule = (function() {
 		var defaultUsername = text;
 		if (usernameRegexCall) {
 			for (var i = 0; i < usernameRegexCall.length; i++) {
-			 defaultUsername = text.replace(usernameRegex, "<a href='https://twitter.com/"+ usernameRegexCall[i] + "' target='_blank' style='color:white;'>" + usernameRegexCall[i] + "</a>");
+			 defaultUsername = text.replace(usernameRegex, "<a href='https://twitter.com/"+ usernameRegexCall[i] + "' target='_blank' style='color:lightblue;'>" + usernameRegexCall[i] + "</a>");
 			}
 		}
 		return defaultUsername;
@@ -92,9 +92,14 @@ var GoogleModule = (function() {
         });
     }
 
+    // function deleteMarker () {
+
+    // }
+
    	shared = {
    		initMap: initMap,
    		createMarker:createMarker
+   		// deleteMarker: deleteMarker
 	}
 	return shared;
 
